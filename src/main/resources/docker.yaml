@@ -1,0 +1,11 @@
+spring:
+  application.name: threads-service
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI}
+
+grpc:
+  server:
+    port: 8073
+    security:
+      enabled: false

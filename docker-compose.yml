@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  threads-service:
+    environment:
+      MONGO_DB_URI: mongodb://root:root@localhost:27017/groopy?authSource=admin
+    build: .
+    ports:
+      - "8073:8073"
+    expose:
+      - '8073'
+    networks:
+      - infrastructure
+  mongodb_container:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+networks:
+  infrastructure:
+    driver: bridge
+
+volumes:
+  mongodb_container:

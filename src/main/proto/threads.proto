@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package threadsservice;
+option java_package = "app.groopy.protobuf";
+option java_outer_classname = "ThreadsServiceProto";
+
+service ThreadsService {
+  rpc postThread(PostThreadRequest) returns (StatusResponse) {};
+}
+
+message PostThreadRequest {
+  string user_id = 1;
+  string parent_id = 2;
+  string topic_id = 3;
+  string event_id = 4;
+  ContentMessage content = 5;
+}
+
+message ContentMessage {
+  string body = 1;
+  string image_url = 2;
+  bytes audio_record = 3;
+  int64 likes = 4;
+}
+
+message ErrorResponse {
+  map<string, string> parameters = 1;
+}
+
+message StatusResponse {
+  int32 status = 1;
+}
+
+enum SpaceType {
+  TOPIC = 0;
+  EVENT = 1;
+}
