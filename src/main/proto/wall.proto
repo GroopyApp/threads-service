@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package wallservice;
+option java_package = "app.groopy.protobuf";
+option java_outer_classname = "WallServiceProto";
+
+service WallService {
+  rpc getWall (WallRequest) returns (WallResponse) {};
+  rpc getTopic (GetTopicRequest) returns (GetTopicResponse) {};
+  rpc createTopic (CreateTopicRequest) returns (CreateTopicResponse) {};
+  rpc createEvent (CreateEventRequest) returns (CreateEventResponse) {};
+  rpc subscribeTopic (SubscribeTopicRequest) returns (SubscribeTopicResponse) {};
+  rpc subscribeEvent (SubscribeEventRequest) returns (SubscribeEventResponse) {};
+  rpc publishThread (PublishThreadRequest) returns (PublishThreadResponse){};
+}
+
+message WallRequest {
+  SearchCriteria criteria = 1;
+}
+
+message WallResponse {
+  repeated Topic topics = 1;
+}
+
+message GetTopicRequest {
+  string id = 1;
+}
+
+message GetTopicResponse {
+  Topic topic = 1;
+}
+
+message CreateTopicRequest {
+  string wall_id = 1;
+  string name = 2;
+  string description = 3;
+  string image_url = 4;
+  repeated string categories = 5;
+  string language = 6;
+}
+
+message CreateTopicResponse {
+    Topic topic = 1;
+}
+
+message SubscribeTopicRequest {
+  string topic_id = 1;
+  string user_id = 2;
+}
+
+message SubscribeTopicResponse {
+  Topic topic = 1;
+}
+
+message CreateEventRequest {
+  string topic_id = 1;
+  string name = 2;
+  string description = 3;
+  Location location = 4;
+  string image_url = 5;
+  string start_date = 6;
+  string end_date = 7;
+}
+
+message CreateEventResponse {
+  Topic topic = 1;
+}
+
+message SubscribeEventRequest {
+  string event_id = 1;
+  string user_id = 2;
+}
+
+message SubscribeEventResponse {
+  Event event = 1;
+}
+
+message PublishThreadRequest {
+  string topic_id = 1;
+  string event_id = 2;
+  string thread_id = 3;
+}
+
+message PublishThreadResponse {
+  int32 status = 1;
+}
+
+message Topic {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string image_url = 4;
+  repeated string categories = 5;
+  string language = 6;
+  repeated Event events = 7;
+  ChatInfo chat_info = 8;
+  repeated User subscribers = 9;
+  repeated string threads = 10;
+}
+
+message Event {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  Location location = 4;
+  string image_url = 5;
+  string start_date = 6;
+  string end_date = 7;
+  ChatInfo chat_info = 8;
+  repeated User participants = 9;
+  repeated string threads = 10;
+}
+
+message User {
+  string user_id = 1;
+  string name = 2;
+  string surname = 3;
+  string birth_date = 4;
+  string email = 5;
+  string phone = 6;
+  string gender = 7;
+  string language = 8;
+  string photo_url = 9;
+  repeated string subscribed_topics = 10;
+  repeated string subscribed_events = 11;
+}
+
+message SearchCriteria {
+  Location location = 1;
+  repeated string languages = 2;
+  repeated string hashtags = 3;
+  string user_id = 4;
+}
+
+message Location {
+  string location_id = 1;
+  float latitude = 2;
+  float longitude = 3;
+}
+
+message ChatInfo {
+  string channel_name = 1;
+  string group_name = 2;
+  string uuid = 3;
+}
+
+message ErrorResponse {
+  map<string, string> parameters = 1;
+}

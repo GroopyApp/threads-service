@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface ThreadsProviderRepository {
 
     PostThreadResponse postThread(PostThreadRequest request);
+
+    void removeThread(String threadId);
 }

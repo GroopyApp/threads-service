@@ -9,3 +9,7 @@ grpc:
     port: 8073
     security:
       enabled: false
+  client:
+    wallService:
+      address: "static://wallservice:8070"
+      negotiationType: PLAINTEXT
