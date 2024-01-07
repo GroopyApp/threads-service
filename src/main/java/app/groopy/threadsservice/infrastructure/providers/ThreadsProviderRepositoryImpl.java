@@ -66,7 +66,6 @@ public class ThreadsProviderRepositoryImpl implements ThreadsProviderRepository 
             LOGGER.error("An error occurred trying to save the new thread: request={}", request, e);
             throw new DatabaseException(e.getMessage());
         }
-
         return PostThreadResponse.builder()
                 .threadId(threadEntity.getId())
                 .build();

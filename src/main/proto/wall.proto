@@ -41,7 +41,7 @@ message CreateTopicRequest {
 }
 
 message CreateTopicResponse {
-    Topic topic = 1;
+  Topic topic = 1;
 }
 
 message SubscribeTopicRequest {
